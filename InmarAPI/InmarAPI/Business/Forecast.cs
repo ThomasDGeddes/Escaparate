@@ -1,24 +1,22 @@
-﻿namespace InmarAPI.Business
+﻿using InmarAPI.DataAccess;
+
+namespace InmarAPI.Business
 {
     public class Forecast
     {
-        private static readonly string[] summaries = new string[]
+        public WeatherForecast[] CreateWeatherForcast()
         {
-                "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+            WeatherConnection connection = new WeatherConnection();
 
-        public static WeatherForecast[] CreateWeatherForcast()
-        {
-            WeatherForecast[] forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                {
-                    Date = DateTime.Now.AddDays(index),
-                    TemperatureC = Random.Shared.Next(-20, 55),
-                    Summary = summaries[Random.Shared.Next(summaries.Length)]
-                })
-                .ToArray();
+            List<WeatherForecast> forecasts = connection.GetForecasts();
 
-            return forecast;
+            forecasts.ForEach((WeatherForecast forecast) =>
+            {
+                int celsius = (int)(5 * (forecast.TemperatureF - 32) / 9);
+                forecast.TemperatureC = celsius;
+            });
+
+            return forecasts.ToArray();
         }
     }
 }

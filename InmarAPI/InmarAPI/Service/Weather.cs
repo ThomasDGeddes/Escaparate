@@ -6,9 +6,11 @@ namespace InmarAPI.Service
     {
         public void GetWeather(WebApplication app)
         {
+            Forecast forecast = new Forecast();
+
             app.MapGet("/weatherforecast", (HttpContext httpContext) =>
             {
-                return Forecast.CreateWeatherForcast();
+                return forecast.CreateWeatherForcast();
             })
             .WithName("GetWeatherForecast");
         }
