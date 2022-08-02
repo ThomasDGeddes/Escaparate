@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let forecast of weatherForecasts">
+    <span>Date: {{ forecast.date }}</span>
+    <span>Temperature Farenheit: {{ forecast.temperatureF }}</span>
+    <span>Temperature Celsius: {{ forecast.temperatureC }}</span>
+    <span>Temperature Summary: {{ forecast.summary }}</span>
+  </li>
+</ul>
